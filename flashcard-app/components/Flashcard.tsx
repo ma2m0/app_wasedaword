@@ -10,6 +10,14 @@ type FlashcardProps = {
 export default function Flashcard({ item }: FlashcardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
 
+  if (!item || !item.word || !item.meaning) {
+    return (
+      <div className="flex h-64 w-full items-center justify-center rounded-2xl bg-white p-6 shadow-md">
+        <p className="text-red-500">カードデータの読み込みに失敗しました。</p>
+      </div>
+    );
+  }
+
   return (
     <button
       type="button"

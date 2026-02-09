@@ -13,22 +13,51 @@ export default function FlashcardApp({ words }: FlashcardAppProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [memorized, setMemorized] = useState<Word[]>([]);
   const [notYet, setNotYet] = useState<Word[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   const currentWord = words[currentIndex];
   const finished = currentIndex >= words.length;
   const progress = useMemo(() => currentIndex, [currentIndex]);
 
   const handleClassify = (type: "memorized" | "not-yet") => {
-    if (!currentWord) return;
+    try {
+      if (!currentWord) return;
 
-    if (type === "memorized") {
-      setMemorized((prev) => [...prev, currentWord]);
-    } else {
-      setNotYet((prev) => [...prev, currentWord]);
+      if (type === "memorized") {
+        setMemorized((prev) => [...prev, currentWord]);
+      } else {
+        setNotYet((prev) => [...prev, currentWord]);
+      }
+
+      setCurrentIndex((prev) => prev + 1);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "分類中にエラーが発生しました。");
     }
-
-    setCurrentIndex((prev) => prev + 1);
   };
+
+  const handleReset = () => {
+    setCurrentIndex(0);
+    setMemorized([]);
+    setNotYet([]);
+    setError(null);
+  };
+
+  if (error) {
+    return (
+      <main className="mx-auto flex min-h-screen w-full max-w-2xl items-center px-4">
+        <div className="w-full rounded-xl bg-white p-8 text-center shadow">
+          <p className="mb-4 text-red-600">{error}</p>
+          <button
+            type="button"
+            onClick={handleReset}
+            className="rounded-xl bg-slate-600 px-4 py-2 font-semibold text-white transition hover:bg-slate-700"
+          >
+            最初からやり直す
+          </button>
+        </div>
+      </main>
+    );
+  }
 
   if (words.length === 0) {
     return (

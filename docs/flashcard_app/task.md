@@ -2,7 +2,8 @@
 
 - [ ] プロジェクト初期化
     - [x] ディレクトリ確認 <!-- id: 0 -->
-    - [ ] Next.jsアプリの初期化 (App Router, TypeScript, Tailwind CSS) - `flashcard-app`フォルダ作成 <!-- id: 1 -->
+    - [x] Next.jsアプリの初期化 (App Router, TypeScript, Tailwind CSS) - `flashcard-app`フォルダ作成 <!-- id: 1 -->
+    - [/] 依存関係のインストール (node_modules) <!-- id: 9 -->
 - [ ] 実装
     - [ ] サンプルデータ作成 (JSON) - `data/words.json` <!-- id: 2 -->
     - [ ] 単語カードコンポーネント作成 (`components/Flashcard.tsx`) <!-- id: 3 -->
